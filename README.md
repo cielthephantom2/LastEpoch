@@ -8,14 +8,32 @@ Copy the original DLL files into these locations, relative to your Last Epoch ga
 
 ```
 <game folder>/
-├── Mods/
-│   ├── LastEpochLAN.dll
-│   └── LastEpoch_Hud.dll
-└── UserLibs/
-    └── LastEpochLAN.Core.dll
+  Update-And-Launch.cmd
+  Update-And-Launch.ps1
+  Mods/
+    LastEpochLAN.dll
+    LastEpoch_Hud.dll
+  UserLibs/
+    LastEpochLAN.Core.dll
 ```
 
 The repository contains the original DLLs in those directories. They are also available individually from [Release v1.0.7](https://github.com/cielthephantom2/LastEpoch/releases/tag/v1.0.7), without a ZIP or installer.
+
+## Automatic update and launch
+
+Place `Update-And-Launch.cmd` and `Update-And-Launch.ps1` together in the game folder, then double-click the CMD file. It checks the latest stable GitHub Release, downloads only changed mod DLLs, verifies SHA256 and assembly identity/version, backs up previous files, and starts the game in offline mode.
+
+The updater replaces only the three mod DLLs in `Mods/` and `UserLibs/`. It requires internet access and an existing MelonLoader/LE HUD installation. It stops if the game is running, an update fails, or the game build is unsupported. A failed write restores previous DLLs before exiting. Existing saves, player settings and Gift journals are untouched.
+
+Backups are stored in `TM-Coop-Backups/`; download staging and update status are stored in `TM-Coop-Updater/`. No GitHub login is required on a player's PC.
+
+For a launcher stored elsewhere:
+
+```powershell
+.\Update-And-Launch.ps1 -GamePath 'D:\SteamLibrary\steamapps\common\Last Epoch'
+```
+
+`-NoLaunch` checks/applies updates without starting the game.
 
 ## Installation
 
